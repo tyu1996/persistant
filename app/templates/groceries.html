@@ -1,0 +1,156 @@
+<!-- Home page -->
+{% extends "layout.html" %}
+
+{% block headscript %}
+<script>
+    // The function that move the cursor to the end of text when focusing
+    (function ($) {
+        $.fn.focusTextToEnd = function () {
+            this.focus();
+            var $thisVal = this.val();
+            this.val('').val($thisVal);
+            return this;
+        }
+    }(jQuery));
+</script>
+
+<style>
+    .centered {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    input[type=text] {
+        border: none;
+        border-bottom: 2px solid black;
+    }
+
+    /* .modal-card-head {
+        background-color: #363636;
+    } */
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="hero is-small is-dark">
+    <div class="hero-body">
+        <h1 class="title">
+            <a href="{{url_for('index')}}">
+                Groceries
+            </a>
+        </h1>
+    </div>
+</div>
+
+<section class="section">
+    <div id="sayur" class="media">
+        <div class="media-left has-text-centered"><i class="fas fa-grip-vertical"></i></div>
+        <div class="media-content content">
+            <div class="level is-mobile">
+                <div class="level-left is-flex-grow-1">
+                    <div class="level-item is-flex-grow-0 check"><input type="checkbox"></div>
+                    <div class="level-item is-flex-grow-1 inputtable">
+                        <p style="margin-right: auto;">Sayur</p>
+                    </div>
+                </div>
+                <div class="level-right level-item is-flex-grow-0">
+                    <span class="icon"><i class="fas fa-times"></i></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="daging" class="media">
+        <div class="media-left"><i class="fas fa-grip-vertical"></i></div>
+        <div class="media-content content">
+            <div class="level is-mobile">
+                <div class="level-left is-flex-grow-1">
+                    <div class="level-item is-flex-grow-0 check"><input type="checkbox"></div>
+                    <div class="level-item is-flex-grow-1 inputtable">
+                        <p style="margin-right: auto;">Daging</p>
+                    </div>
+                </div>
+                <div class="level-right level-item is-flex-grow-0">
+                    <span class="icon"><i class="fas fa-times"></i></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="ikan" class="media">
+        <div class="media-left"><i class="fas fa-grip-vertical"></i></div>
+        <div class="media-content content">
+            <div class="level is-mobile">
+                <div class="level-left is-flex-grow-1">
+                    <div class="level-item is-flex-grow-0 check"><input type="checkbox"></div>
+                    <div class="level-item is-flex-grow-1 inputtable">
+                        <p style="margin-right: auto;">Ikan</p>
+                    </div>
+                </div>
+                <div class="level-right level-item is-flex-grow-0">
+                    <span class="icon"><i class="fas fa-times"></i></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="position: absolute; bottom: 2rem; right: 1.5rem;">
+        <span id="add" class="icon has-text-info is-large">
+            <i class="fa fa-3x fa-plus-circle" aria-hidden="true"></i>
+        </span>
+    </div>
+</section>
+
+<div class="modal">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head has-background-dark">
+            <div class="modal-card-title has-text-light">Add New Item</div>
+        </header>
+        <section class="modal-card-body">
+            <input class="input is-info" type="text" placeholder="New Item">
+        </section>
+        <footer class="modal-card-foot py-2">
+            <button class="button is-info" style="margin-left: auto;">Save</button>
+            <button class="button close">Cancel</button>
+        </footer>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block bodyscript %}
+<script>
+    /* Activate/Deactivate modal */
+    $("#add").on("click", function () {
+        $(".modal").addClass("is-active");
+    });
+
+    $(".close").on("click", function () {
+        $(".modal").removeClass("is-active");
+    });
+    /* Activate/Deactivate modal */
+
+    /* Interactive events for groceries list */
+    // Click middle area to change to text input field
+    $(".section").on("click", ".media .inputtable", function (event) {
+        var text = $(this).find("p").text();
+        $(this).find("p").replaceWith('<input class="input is-small p-1" type="text" value=' + text + ' style="box-sizing: border-box;">');
+        $(this).find("input").focusTextToEnd();
+    });
+
+    // Change back to text while text input field is out of focus
+    $(".section").on("focusout", ".media .input", function (event) {
+        var text = $(this).val();
+        $(this).replaceWith('<p style="margin-right: auto;">' + text + '</p>');
+    });
+
+    // Click the right icon to remove item
+    $(".section").on("click", ".media .level-right", function (event) {
+        $(this).closest(".media").remove();
+    });
+    /* Interactive events for groceries list */
+    // TODO: When checkbox checked, move to below, as checked
+</script>
+{% endblock %}

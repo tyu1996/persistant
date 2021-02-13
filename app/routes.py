@@ -8,12 +8,21 @@ from .forms import SampleForm
 @app.route('/index')
 @app.route('/home')
 def index():
-    return render_template('index.html')
+    title = "Persistant - Home"
+    return render_template('index.html', title=title)
 
 
-@app.route('/articles')
-def articles():
-    return render_template('articles.html')
+@app.route('/medication')
+def medication():
+    title = "Persistant - Medication"
+    return render_template('medication.html', title=title)
+
+
+@app.route('/groceries')
+def groceries():
+    title = "Persistant - Groceries"
+
+    return render_template('groceries.html', title=title)
 
 
 @app.route('/forms', methods=['GET', 'POST'])

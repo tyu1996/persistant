@@ -5,11 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Persistant - Home</title>
+    <title>{{ title }}</title>
     <link rel="icon" href="{{ url_for('static', filename='images/logo.png') }}" type="image/x-icon">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bulma.css') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='css/fa-all.css') }}" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/bulma-divider.min.css') }}">
+    <script src="{{ url_for('static', filename='js/jquery-3.5.1.min.js') }}"></script>
     <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/debug.css') }}"> -->
 
     {% block headscript %}{% endblock %}
@@ -25,7 +25,7 @@
 <body>
 
     {% block content %}{% endblock %}
-
+    {% block bodyscript %}{% endblock %}
 
 </body>
 

@@ -16,23 +16,24 @@
     <div class="hero-body">
         <h1 class="title">
             <a href="{{url_for('index')}}">
-                Persistant - Home
+                Medication
             </a>
         </h1>
     </div>
 </div>
 <section class="section">
+
     <div class="container">
         <div class="columns">
             <div class="column">
-                <div id="med" class="box py-6">
-                    <i class="fas fa-2x fa-pills centered"></i>
+                <div id="med" class="box">
+                    <i class="fas fa-pills centered"></i>
                     <p class="centered">Medication</p>
                 </div>
             </div>
             <div class="column">
-                <div id="gro" class="box py-6">
-                    <i class="fas fa-2x fa-shopping-basket centered"></i>
+                <div id="gro" class="box">
+                    <i class="fas fa-shopping-basket centered"></i>
                     <p class="centered">Groceries</p>
                 </div>
             </div>
@@ -44,11 +45,6 @@
 
 {% block bodyscript %}
 <script>
-    $("#med").on("click", function (e) {
-        location.href = "{{ url_for('medication') }}";
-    });
-    $("#gro").on("click", function (e) {
-        location.href = "{{ url_for('groceries') }}";
-    });
+
 </script>
 {% endblock %}
