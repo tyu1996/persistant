@@ -1,3 +1,6 @@
 {
-    "python.pythonPath": "C:\\Users\\Brian\\miniconda3\\envs\\persistant\\python.exe"
+    "python.pythonPath": "/home/brian/.pyenv/versions/persistant/bin/python",
+    "python.linting.pylintEnabled": false,
+    "python.linting.flake8Enabled": true,
+    "python.linting.enabled": true
 }

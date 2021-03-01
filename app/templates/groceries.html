@@ -2,6 +2,8 @@
 {% extends "layout.html" %}
 
 {% block headscript %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/modal-fx.min.css') }}" />
+
 <script>
     // The function that move the cursor to the end of text when focusing
     (function ($) {
@@ -26,23 +28,27 @@
         border-bottom: 2px solid black;
     }
 
-    /* .modal-card-head {
-        background-color: #363636;
-    } */
+    /* Customise animation for modal */
+    .modal.modal-fx-slideBottom .modal-card {
+        -webkit-transform: translateY(20%);
+        -o-transform: translateY(20%);
+        transform: translateY(20%);
+        opacity: 0;
+        -webkit-transition: all .3s;
+        -o-transition: all .3s;
+        transition: all .3s
+    }
+
+    .modal.modal-fx-slideBottom.is-active .modal-card {
+        -webkit-transform: translateY(0);
+        -o-transform: translateY(0);
+        transform: translateY(0);
+        opacity: 1
+    }
 </style>
 {% endblock %}
 
 {% block content %}
-<div class="hero is-small is-dark">
-    <div class="hero-body">
-        <h1 class="title">
-            <a href="{{url_for('index')}}">
-                Groceries
-            </a>
-        </h1>
-    </div>
-</div>
-
 <section class="section">
     <div id="sayur" class="media">
         <div class="media-left has-text-centered"><i class="fas fa-grip-vertical"></i></div>
@@ -102,7 +108,7 @@
     </div>
 </section>
 
-<div class="modal">
+<div class="modal modal-fx-slideBottom">
     <div class="modal-background"></div>
     <div class="modal-card">
         <header class="modal-card-head has-background-dark">

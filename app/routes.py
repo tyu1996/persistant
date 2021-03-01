@@ -9,20 +9,22 @@ from .forms import SampleForm
 @app.route('/home')
 def index():
     title = "Persistant - Home"
-    return render_template('index.html', title=title)
+    heading = "Home"
+    return render_template('index.html', title=title, heading=heading, home=True)
 
 
 @app.route('/medication')
 def medication():
     title = "Persistant - Medication"
-    return render_template('medication.html', title=title)
+    heading = "Medication"
+    return render_template('medication.html', title=title, heading=heading)
 
 
 @app.route('/groceries')
 def groceries():
     title = "Persistant - Groceries"
-
-    return render_template('groceries.html', title=title)
+    heading = "Groceries"
+    return render_template('groceries.html', title=title, heading=heading)
 
 
 @app.route('/forms', methods=['GET', 'POST'])

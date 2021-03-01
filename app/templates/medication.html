@@ -2,49 +2,242 @@
 {% extends "layout.html" %}
 
 {% block headscript %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/bulma-divider.min.css') }}" />
+<link rel="stylesheet" href="{{ url_for('static', filename='css/modal-fx.min.css') }}" />
+
 <style>
     .centered {
         display: flex;
         justify-content: center;
         align-items: center;
     }
+
+    li {
+        margin-bottom: 0.5em;
+    }
+
+    /* Customise animation for modal */
+    .modal.modal-fx-slideBottom .modal-card {
+        -webkit-transform: translateY(20%);
+        -o-transform: translateY(20%);
+        transform: translateY(20%);
+        opacity: 0;
+        -webkit-transition: all .3s;
+        -o-transition: all .3s;
+        transition: all .3s
+    }
+
+    .modal.modal-fx-slideBottom.is-active .modal-card {
+        -webkit-transform: translateY(0);
+        -o-transform: translateY(0);
+        transform: translateY(0);
+        opacity: 1
+    }
 </style>
 {% endblock %}
 
 {% block content %}
-<div class="hero is-small is-dark">
-    <div class="hero-body">
-        <h1 class="title">
-            <a href="{{url_for('index')}}">
-                Medication
-            </a>
-        </h1>
-    </div>
-</div>
 <section class="section">
-
     <div class="container">
-        <div class="columns">
-            <div class="column">
-                <div id="med" class="box">
-                    <i class="fas fa-pills centered"></i>
-                    <p class="centered">Medication</p>
+        <div class="card">
+            <div class="card-header has-background-grey-lighter">
+                <h5 class="card-header-title subtitle">Pills</h5>
+            </div>
+            <div class="card-content">
+                <div class="media">
+                    <div class="media-left is-flex-grow-1">
+                        <div class="media-content content item-name">Panadol</div>
+                    </div>
+                    <div class="media-right">
+                        <div class="media-content content item-pcs">3pc(s)</div>
+                    </div>
+                </div>
+
+                <div class="media">
+                    <div class="media-left is-flex-grow-1">
+                        <div class="media-content content item-name">Dhamotil</div>
+                    </div>
+                    <div class="media-right">
+                        <div class="media-content content item-pcs">1pc(s)</div>
+                    </div>
                 </div>
             </div>
-            <div class="column">
-                <div id="gro" class="box">
-                    <i class="fas fa-shopping-basket centered"></i>
-                    <p class="centered">Groceries</p>
+        </div>
+
+        <div class="divider is-light"></div>
+
+        <div class="card">
+            <div class="card-header has-background-grey-lighter">
+                <h5 class="card-header-title subtitle">Supplements</h5>
+            </div>
+            <div class="card-content">
+                <div class="media">
+                    <div class="media-left is-flex-grow-1">
+                        <div class="media-content content item-name">Vitamin C</div>
+                    </div>
+                    <div class="media-right">
+                        <div class="media-content content item-pcs">3pc(s)</div>
+                    </div>
+                </div>
+
+                <div class="media">
+                    <div class="media-left is-flex-grow-1">
+                        <div class="media-content content item-name">B-Complex</div>
+                    </div>
+                    <div class="media-right">
+                        <div class="media-content content item-pcs">1pc(s)</div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <div style="position: absolute; bottom: 2rem; right: 1.5rem;">
+        <span id="add" class="icon has-text-info is-large">
+            <i class="fa fa-3x fa-plus-circle" aria-hidden="true"></i>
+        </span>
+    </div>
 </section>
+
+<!-- Pop-up Modal: Modify -->
+<div id="modal-mod" class="modal modal-fx-slideBottom">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head has-background-dark">
+            <div id="item-header"></div>
+        </header>
+        <section class="modal-card-body">
+            <div class="level is-mobile">
+                <div class="level-left level-item">
+                    PCs
+                </div>
+                <div class="level-right level-item">
+                    <div id="pcs"></div>
+                </div>
+            </div>
+            <p class="subtitle">Reminder Time</p>
+            <div class="level is-mobile">
+                <div class="level-left level-item" style="width: 50%;">
+                    1st dose
+                </div>
+                <div class="level-right level-item">
+                    <input class="input is-info" type="time">
+                </div>
+            </div>
+            <div class="level is-mobile">
+                <div class="level-left level-item" style="width: 50%;">
+                    2nd dose
+                </div>
+                <div class="level-right level-item">
+                    <input class="input is-info" type="time">
+                </div>
+            </div>
+            <div class="level is-mobile">
+                <div class="level-left level-item" style="width: 50%;">
+                    3rd dose
+                </div>
+                <div class="level-right level-item">
+                    <input class="input is-info" type="time">
+                </div>
+            </div>
+        </section>
+        <footer class="modal-card-foot py-2">
+            <button class="button is-danger"
+                style="margin-right: auto; background-color:hsl(0, 100%, 40%);">Delete</button>
+            <button class="button is-info" style="margin-left: auto;">Save</button>
+            <button id="mod-close" class="button close">Cancel</button>
+        </footer>
+    </div>
+</div>
+<!-- Pop-up Modal: Modify -->
+
+<!-- Pop-up Modal: Add New -->
+<div id="modal-add" class="modal modal-fx-slideBottom">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head has-background-dark">
+            <div class="modal-card-title has-text-light">Add New Item</div>
+        </header>
+        <section class="modal-card-body">
+            <div class="level is-mobile">
+                <div class="level-left level-item">
+                    Item Name
+                </div>
+                <div class="level-right level-item" style="width:50%;">
+                    <input class="input is-info" type="text" placeholder="New Item">
+                </div>
+            </div>
+            <div class="level is-mobile">
+                <div class="level-left level-item">
+                    PCs
+                </div>
+                <div class="level-right level-item">
+                    <input class="input is-info" type="number" value="0" style="width: 50%;">
+                </div>
+            </div>
+            <p class="subtitle">Reminder Time</p>
+            <div class="level is-mobile">
+                <div class="level-left level-item" style="width: 50%;">
+                    1st dose
+                </div>
+                <div class="level-right level-item">
+                    <input class="input is-info" type="time">
+                </div>
+            </div>
+            <div class="level is-mobile">
+                <div class="level-left level-item" style="width: 50%;">
+                    2nd dose
+                </div>
+                <div class="level-right level-item">
+                    <input class="input is-info" type="time">
+                </div>
+            </div>
+            <div class="level is-mobile">
+                <div class="level-left level-item" style="width: 50%;">
+                    3rd dose
+                </div>
+                <div class="level-right level-item">
+                    <input class="input is-info" type="time">
+                </div>
+            </div>
+        </section>
+        <footer class="modal-card-foot py-2">
+            <button class="button is-info" style="margin-left: auto;">Save</button>
+            <button id="add-close" class="button close">Cancel</button>
+        </footer>
+    </div>
+</div>
+<!-- Pop-up Modal: Add New -->
 
 {% endblock %}
 
 {% block bodyscript %}
 <script>
+    /* Deactivate modal-mod */
+    $("#mod-close").on("click", function () {
+        $("#modal-mod").removeClass("is-active");
+    });
+    /* Deactivate modal-mod */
+
+    /* Activate/Deactivate modal-add */
+    $("#add").on("click", function () {
+        $("#modal-add").addClass("is-active");
+    });
+
+    $("#add-close").on("click", function () {
+        $("#modal-add").removeClass("is-active");
+    });
+    /* Activate/Deactivate modal-add */
+
+    /* Interactive events for any pills/supplements item */
+    $(".section").on("click", ".media", function (event) {
+        var text = $(this).find(".item-name").text();
+        var pcs = $(this).find(".item-pcs").text();
+        $("#item-header").replaceWith('<div id="item-header" class="modal-card-title has-text-light">' + text + '</div>');
+        $("#pcs").replaceWith('<input id="pcs" class="input is-info" type="number" value="' + parseInt(pcs) + '" style="width: 50%;">');
+        $("#modal-mod").addClass("is-active");
+    });
+    /* Interactive events for any pills/supplements item */
 
 </script>
 {% endblock %}

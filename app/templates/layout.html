@@ -23,6 +23,17 @@
 </head>
 
 <body>
+    <div class="hero is-small is-dark">
+        <div class="hero-body">
+            <h1 class="title">
+                {% if not home %}
+                <a href="{{url_for('index')}}" class="fas fa-arrow-left" style="margin-right: 10px;"></a>
+                {% endif %}
+                {{ heading }}
+                </a>
+            </h1>
+        </div>
+    </div>
 
     {% block content %}{% endblock %}
     {% block bodyscript %}{% endblock %}
