@@ -2,6 +2,7 @@
 {% extends "layout.html" %}
 
 {% block headscript %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/bulma-divider.min.css') }}" />
 <link rel="stylesheet" href="{{ url_for('static', filename='css/modal-fx.min.css') }}" />
 
 <script>
@@ -49,65 +50,106 @@
 {% endblock %}
 
 {% block content %}
-<section class="section">
-    <div id="sayur" class="media">
-        <div class="media-left has-text-centered"><i class="fas fa-grip-vertical"></i></div>
-        <div class="media-content content">
-            <div class="level is-mobile">
-                <div class="level-left is-flex-grow-1">
-                    <div class="level-item is-flex-grow-0 check"><input type="checkbox"></div>
-                    <div class="level-item is-flex-grow-1 inputtable">
-                        <p style="margin-right: auto;">Sayur</p>
+<section class="section" style="min-height: inherit;">
+
+    <!-- Groceries List -->
+    <p class="subtitle">Items</p>
+    <div id="unchecked-item">
+        <div id="sayur" class="media">
+            <div class="media-left has-text-centered"><i class="fas fa-grip-vertical"></i></div>
+            <div class="media-content content">
+                <div class="level is-mobile">
+                    <div class="level-left is-flex-grow-1">
+                        <div class="level-item is-flex-grow-0"><input class="check" type="checkbox"></div>
+                        <div class="level-item is-flex-grow-1 inputtable">
+                            <p style="margin-right: auto;">Sayur</p>
+                        </div>
+                    </div>
+                    <div class="level-right level-item is-flex-grow-0">
+                        <span class="icon"><i class="fas fa-times"></i></span>
                     </div>
                 </div>
-                <div class="level-right level-item is-flex-grow-0">
-                    <span class="icon"><i class="fas fa-times"></i></span>
+            </div>
+        </div>
+        <div id="daging" class="media">
+            <div class="media-left"><i class="fas fa-grip-vertical"></i></div>
+            <div class="media-content content">
+                <div class="level is-mobile">
+                    <div class="level-left is-flex-grow-1">
+                        <div class="level-item is-flex-grow-0"><input class="check" type="checkbox"></div>
+                        <div class="level-item is-flex-grow-1 inputtable">
+                            <p style="margin-right: auto;">Daging</p>
+                        </div>
+                    </div>
+                    <div class="level-right level-item is-flex-grow-0">
+                        <span class="icon"><i class="fas fa-times"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="ikan" class="media">
+            <div class="media-left"><i class="fas fa-grip-vertical"></i></div>
+            <div class="media-content content">
+                <div class="level is-mobile">
+                    <div class="level-left is-flex-grow-1">
+                        <div class="level-item is-flex-grow-0"><input class="check" type="checkbox"></div>
+                        <div class="level-item is-flex-grow-1 inputtable">
+                            <p style="margin-right: auto;">Ikan</p>
+                        </div>
+                    </div>
+                    <div class="level-right level-item is-flex-grow-0">
+                        <span class="icon"><i class="fas fa-times"></i></span>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <div id="daging" class="media">
-        <div class="media-left"><i class="fas fa-grip-vertical"></i></div>
-        <div class="media-content content">
-            <div class="level is-mobile">
-                <div class="level-left is-flex-grow-1">
-                    <div class="level-item is-flex-grow-0 check"><input type="checkbox"></div>
-                    <div class="level-item is-flex-grow-1 inputtable">
-                        <p style="margin-right: auto;">Daging</p>
+    <!-- Groceries List -->
+    <div class="divider"></div>
+    <!-- Checked List -->
+    <p class="subtitle">Checked</p>
+    <div id="checked-item">
+        <div id="ayam" class="media">
+            <div class="media-left"><i class="fas fa-grip-vertical"></i></div>
+            <div class="media-content content">
+                <del>
+                    <div class="level is-mobile">
+                        <div class="level-left is-flex-grow-1">
+                            <div class="level-item is-flex-grow-0"><input class="check" type="checkbox" checked="">
+                            </div>
+                            <div class="level-item is-flex-grow-1 inputtable">
+                                <p style="margin-right: auto;">Ayam</p>
+                            </div>
+                        </div>
+                        <div class="level-right level-item is-flex-grow-0">
+                            <span class="icon"><i class="fas fa-times"></i></span>
+                        </div>
                     </div>
-                </div>
-                <div class="level-right level-item is-flex-grow-0">
-                    <span class="icon"><i class="fas fa-times"></i></span>
-                </div>
+                </del>
             </div>
         </div>
     </div>
-
-    <div id="ikan" class="media">
-        <div class="media-left"><i class="fas fa-grip-vertical"></i></div>
-        <div class="media-content content">
-            <div class="level is-mobile">
-                <div class="level-left is-flex-grow-1">
-                    <div class="level-item is-flex-grow-0 check"><input type="checkbox"></div>
-                    <div class="level-item is-flex-grow-1 inputtable">
-                        <p style="margin-right: auto;">Ikan</p>
-                    </div>
-                </div>
-                <div class="level-right level-item is-flex-grow-0">
-                    <span class="icon"><i class="fas fa-times"></i></span>
-                </div>
-            </div>
-        </div>
+    <!-- Checked List -->
+    <div class="divider"></div>
+    <!-- Tags for quick add items -->
+    <div class="tags">
+        <span class="tag is-medium">Ayam</span>
+        <span class="tag is-medium">Daging</span>
+        <span class="tag is-medium">Sayur</span>
     </div>
+    <!-- Tags for quick add items -->
 
-    <div style="position: absolute; bottom: 2rem; right: 1.5rem;">
+    <!-- Add Button -->
+    <div class="is-pulled-right" style="margin-top: auto;">
         <span id="add" class="icon has-text-info is-large">
             <i class="fa fa-3x fa-plus-circle" aria-hidden="true"></i>
         </span>
     </div>
+    <!-- Add Button -->
+
 </section>
 
+<!-- Modal -->
 <div class="modal modal-fx-slideBottom">
     <div class="modal-background"></div>
     <div class="modal-card">
@@ -123,6 +165,7 @@
         </footer>
     </div>
 </div>
+<!-- Modal -->
 
 {% endblock %}
 
@@ -139,6 +182,21 @@
     /* Activate/Deactivate modal */
 
     /* Interactive events for groceries list */
+    // Check the checkbox to move item to checked list
+    // OR
+    // Uncheck the checkbox to move back to top
+    $(".section").on("click", ".media .check", function (event) {
+        // Upon checked
+        if ($(this).is(':checked')) {
+            $(this).parents(".media").prependTo("#checked-item");
+            $(this).parents(".level").wrap("<del></del>");
+        }
+        else {
+            $(this).parents(".media").appendTo("#unchecked-item");
+            $(this).parents(".level").unwrap("del");
+        }
+    });
+
     // Click middle area to change to text input field
     $(".section").on("click", ".media .inputtable", function (event) {
         var text = $(this).find("p").text();

@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bulma.css') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='css/fa-all.css') }}" />
     <script src="{{ url_for('static', filename='js/jquery-3.5.1.min.js') }}"></script>
-    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/debug.css') }}"> -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/debug.css') }}">
 
     {% block headscript %}{% endblock %}
 
@@ -22,7 +22,7 @@
     </style> -->
 </head>
 
-<body>
+<body style="min-height: 100vh;">
     <div class="hero is-small is-dark">
         <div class="hero-body">
             <h1 class="title">
